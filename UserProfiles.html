@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Lab4" content="lab4-exercise2">
+        <title>User Profiles</title>
+    </head>
+    <body>
+        <h1>User Profiles</h1>
+        <div id="userprofiles"></div>
+        <script>
+            fetch('userProfiles.json')
+                .then(response=>response.json())
+                .then(data=>{
+                    const profilesContainer=document.getElementById('userprofiles');
+                    data.userProfiles.forEach(profile=>{
+                        const profileDiv=document.createElement('div');
+                        profileDiv.className='user-profile';
+
+                        const firstName=document.createElement('p');
+                        firstName.textContent=`First Name:${profile.firstName}`;
+                        profileDiv.appendChild(firstName);
+
+                        const lastName=document.createElement('p');
+                        lastName.textContent=`Last Name:${profile.lastName}`;
+                        profileDiv.appendChild(lastName);
+
+                        const email=document.createElement('p');
+                        email.textContent=`Email:${profile.email}`;
+                        profileDiv.appendChild(email);
+
+                        const dateOfBirth=document.createElement('p');
+                        dateOfBirth.textContent=`DateOfBirth:${profile.dateOfBirth}`;
+                        profileDiv.appendChild(dateOfBirth);
+
+                        const address=document.createElement('p');
+                        address.textContent=`Address:${profile.address.street},${profile.address.city},${profile.address.state},${profile.address.zipCode}`;
+                        profileDiv.appendChild(address);
+
+                        const preferences=document.createElement('p');
+                        preferences.textContent=`Preferences:Theme(${profile.preferences.theme}),Language(${profile.preferences.language}),Notifications(${profile.preferences.notifications}),Subscription(${profile.preferences.subscription})`;
+                        profileDiv.appendChild(preferences);
+
+                        profilesContainer.appendChild(profileDiv);
+                    });
+                }
+                )
+                .catch(error=>console.error('Error fetching JSON:',error));
+        </script>
+    </body>
+</html>
